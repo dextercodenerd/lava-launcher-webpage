@@ -3,8 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lava Launcher</title>
+    <meta name="description" content="Lava Launcher - A family-friendly Minecraft launcher designed for safety and ease of use. Open source and simple.">
+    <title>Lava Launcher | Family-Friendly Minecraft</title>
     <style>
+        :root {
+            /* BRAND COLORS */
+            --primary-orange: #e67e22;
+            --secondary-orange: #d35400;
+            --lava-gradient: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
+            --github-dark: #161b22;
+            --text-main: #ffffff;
+
+            /* LOCKED THEME: COARSE (Darker, Gritty Brown) */
+            --bg-gradient-start: #2e2621;
+            --bg-gradient-end: #171311;
+            --container-bg: #241e1a;
+            --card-bg: #2e2621;
+            --border-color: #3d322c;
+            --text-muted: #bcaaa4;
+            --footer-bg: #14100e;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,121 +31,125 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+            color: var(--text-main);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: white;
+            background: var(--container-bg);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
         }
 
+        /* --- LAVA HEADER DESIGNS --- */
+
         header {
-            background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
             color: white;
             text-align: center;
-            padding: 40px 20px;
+            /* Restored original compact padding */
+            padding: 80px 20px;
             position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 10;
+
+            /* Common properties for blocky look */
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            border-bottom: 4px solid rgba(0,0,0,0.2);
+
+            /* Make pixels chunky (16x16 SVG scaled to 256px = 16x zoom) */
+            background-size: 256px 256px;
+            background-repeat: repeat;
+        }
+
+        /* --- CONTRAST ALTERNATIVES (No boxes) --- */
+
+        /* OPTION 1: Hard Shadow (Active)
+           Classic blocky shadow, offset deep to the bottom-right */
+        header.contrast-hard-shadow h1 {
+            text-shadow: 4px 4px 0 #000000;
+        }
+        header.contrast-hard-shadow .subtitle {
+            text-shadow: 2px 2px 0 #000000;
+        }
+
+        /* ALTERNATIVE 1: Stone Cliff with Lava Falls */
+        .lava-style-1 {
+            background-color: #757575;
+            /* 16x16 Stone Base with Orange Lava spilling over top and dripping */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" shape-rendering="crispEdges"><!-- Stone Base --><rect width="16" height="16" fill="%23757575"/><!-- Stone Noise --><path fill="%235e5e5e" d="M1 5h1v1H1z M5 8h1v1H5z M10 6h1v1H10z M2 13h1v1H2z M14 10h1v1H14z"/><!-- Lava Top --><rect width="16" height="3" fill="%23e65100"/><!-- Lava Stream 1 --><rect x="3" y="3" width="2" height="10" fill="%23e65100"/><!-- Lava Stream 2 --><rect x="11" y="3" width="3" height="6" fill="%23e65100"/><!-- Lava Highlights --><path fill="%23ffb74d" d="M1 1h2v1H1z M5 1h1v1H5z M10 1h2v1H10z M4 5h1v1H4z M12 5h1v1H12z"/></svg>');
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 3rem;
+            margin-bottom: 15px;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            font-weight: 800;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.35rem;
+            opacity: 1;
+            font-weight: 600;
         }
 
         .content {
             padding: 40px;
+            flex: 1;
         }
 
         .intro {
             font-size: 1.1rem;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
-            color: #555;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .feature {
-            background: #fffaf0;
-            padding: 25px;
-            border-radius: 10px;
+        /* Call to Action Section */
+        .cta-section {
             text-align: center;
-            border-left: 4px solid #e67e22;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px 0 40px 0;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.15);
+        /* New Warning Banner Style */
+        .dev-warning {
+            background: rgba(211, 84, 0, 0.15); /* Low opacity orange background */
+            border: 2px dashed var(--secondary-orange);
+            color: #ffd700; /* Gold text for visibility */
+            padding: 15px;
+            margin: 25px auto;
+            border-radius: 8px;
+            max-width: 650px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+            line-height: 1.4;
         }
 
-        .feature h3 {
-            color: #d35400;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .feature p {
-            color: #666;
-        }
-
-        .icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #e67e22;
-        }
-
-        .download {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-            color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
-            margin: 0 10px 10px 10px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
-            box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
-        }
-
-        .btn-secondary:hover {
-            box-shadow: 0 6px 20px rgba(149, 165, 166, 0.4);
+        .dev-warning strong {
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .button-group {
@@ -134,126 +157,363 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
+            margin-top: 20px;
         }
 
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            gap: 10px;
+        }
+
+        /* GitHub Button */
+        .btn-github {
+            background: var(--github-dark);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-github:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            background: #1f2428;
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            /* Adaptive columns: Fit as many 200px+ columns as possible */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        /* --- CARD STYLING --- */
+
+        .feature {
+            /* Layout & Spacing */
+            width: 100%;
+            aspect-ratio: 1 / 1;     /* Strict Square Enforcement */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center content in the available space */
+
+            /* The top padding accommodates the 'grass' layer of the background image */
+            padding: 45px 20px 20px 20px;
+
+            position: relative;
+            text-align: center;
+            overflow: hidden; /* Ensures content doesn't break aspect ratio */
+
+            /* Visuals: Block Texture */
+            background-color: var(--card-bg);
+            /* Unified SVG Data URI: Mud + Grass Block */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><!-- Dirt Base --><rect width="16" height="16" fill="%23705238" /><!-- Mud Noise --><path fill="%23543D2A" d="M3 3h1v1h-1z M9 4h1v1h-1z M13 3h1v1h-1z M2 8h1v1h-1z M7 10h1v1h-1z M14 12h1v1h-1z M5 14h1v1h-1z M11 14h1v1h-1z" /><path fill="%238B6647" d="M1 3h1v1h-1z M6 5h1v1h-1z M11 3h1v1h-1z M15 5h1v1h-1z M4 9h1v1h-1z M10 9h1v1h-1z M0 13h1v1h-1z M8 13h1v1h-1z M13 10h1v1h-1z" /><!-- Grass Top --><path fill="%236BA943" d="M0 0h16v1h-16z M0 1h2v1h-2z M3 1h5v1h-5z M9 1h2v1h-2z M12 1h4v1h-4z M1 2h1v1h-1z M4 2h1v1h-1z M10 2h1v1h-1z M13 2h1v1h-1z" /><!-- Grass Noise --><path fill="%234A802A" d="M0 0h1v1h-1z M4 0h1v1h-1z M8 0h1v1h-1z M12 0h1v1h-1z M3 1h1v1h-1z M9 1h1v1h-1z" /><path fill="%2385C95D" d="M2 0h1v1h-1z M6 0h1v1h-1z M10 0h1v1h-1z M14 0h1v1h-1z M5 1h1v1h-1z M11 1h1v1h-1z" /></svg>');
+
+            /* Edge-to-Edge Logic */
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-origin: border-box;
+
+            /* Pixel Perfect Rendering */
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+
+            /* Block Shadow (Removed inset outline) */
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
+            border-radius: 2px;
+        }
+
+        .feature h3 {
+            color: var(--primary-orange);
+            margin-bottom: 8px;
+            font-size: 1.25rem;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.9), -1px -1px 0 rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        .feature p {
+            color: #eeeeee;
+            font-size: 0.95rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,1);
+            z-index: 2;
+            line-height: 1.4;
+        }
+
+        .feature a {
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 600;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+            z-index: 2;
+        }
+
+        .feature a:hover {
+            text-decoration: underline;
+        }
+
+        /* Replaced font-size emoji icon with sized SVG icon */
+        .pixel-icon {
+            width: 64px;
+            height: 64px;
+            display: block;
+            margin-bottom: 15px;
+            margin-top: -15px;
+            z-index: 2;
+            /* Drop shadow for depth against the background */
+            filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.4));
+
+            /* Ensure crisp pixel edges for SVGs */
+            image-rendering: pixelated;
+        }
+
+        /* Legal/Disclaimer */
         .disclaimer {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            background: rgba(0,0,0,0.2);
             border-radius: 8px;
             padding: 15px;
-            margin: 30px 0;
+            margin: 30px 0 0 0;
             text-align: center;
-            color: #856404;
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
             line-height: 1.5;
+            border: 1px solid var(--border-color);
         }
 
         .disclaimer strong {
             display: block;
-            margin-bottom: 8px;
-            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--text-main);
+            font-size: 0.9rem;
         }
 
         footer {
             text-align: center;
-            padding: 20px;
-            background: #fffaf0;
-            color: #666;
-            border-top: 1px solid #ffeaa7;
+            padding: 30px 20px;
+            background: var(--footer-bg);
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
 
         @media (max-width: 600px) {
-            .container {
-                margin: 10px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .button-group {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                margin: 5px 0;
-                width: 100%;
-                max-width: 250px;
-            }
-
-            .disclaimer {
-                margin: 20px 0;
-                padding: 12px;
-            }
+            .container { margin: 0; border-radius: 0; }
+            h1 { font-size: 2rem; }
+            .content { padding: 25px 20px; }
+            .button-group { flex-direction: column; width: 100%; }
+            .btn { width: 100%; }
+            .dev-warning { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <header>
+    <header class="lava-style-1 contrast-hard-shadow">
         <h1>Lava Launcher</h1>
         <p class="subtitle">The family-friendly way to play Minecraft with mods</p>
     </header>
 
-    <div class="content">
-        <div class="download">
+    <main class="content">
+
+        <div class="cta-section">
+            <p class="intro">
+                A new Minecraft launcher designed specifically for younger players and families,
+                making modded Minecraft accessible to everyone regardless of technical skill.
+            </p>
+
+            <div class="dev-warning">
+                <span style="font-size: 1.5em;" role="img" aria-label="Construction sign">🚧</span>
+                <span><strong>HEAVY DEVELOPMENT:</strong> Lava Launcher is currently in pre-alpha. No playable builds are available for installation yet. This website was hastily build for review of the app's Microsoft login by Mojang. More is coming when my evenings give me some free time :)</span>
+            </div>
+
             <div class="button-group">
-                <a href="#" class="btn">Coming soon</a>
+                <!-- GitHub Button -->
+                <a href="https://github.com/dextercodenerd/lava-launcher" target="_blank" rel="noopener noreferrer" class="btn btn-github">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    View Source on GitHub
+                </a>
+            </div>
+        </div>
+
+        <div class="features">
+            <!-- 1. Open Source (Pixel Open Chest with Code) -->
+            <div class="feature">
+                <svg class="pixel-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <!-- Base (Darker Wood) -->
+                    <rect x="2" y="8" width="12" height="6" fill="#5D4037" />
+                    <!-- Base trim -->
+                    <rect x="2" y="11" width="12" height="1" fill="#3E2723" />
+                    <!-- Lock on base -->
+                    <rect x="7" y="8" width="2" height="2" fill="#BDBDBD" />
+
+                    <!-- Inside Darkness -->
+                    <rect x="3" y="6" width="10" height="2" fill="#212121" />
+                    <!-- Green "Code" item inside -->
+                    <rect x="5" y="5" width="6" height="2" fill="#76FF03" />
+                    <rect x="6" y="6" width="4" height="1" fill="#CCFF90" />
+
+                    <!-- Lid (Flipped Up/Back) -->
+                    <rect x="2" y="2" width="12" height="3" fill="#8D6E63" />
+                    <rect x="2" y="4" width="12" height="1" fill="#5D4037" />
+
+                    <!-- Lid Lock -->
+                    <rect x="7" y="4" width="2" height="1" fill="#EEEEEE" />
+                </svg>
+                <h3>Open source</h3>
+                <p>Completely free and open source software (GPLv3). Code is available on <a href="https://github.com/dextercodenerd/lava-launcher" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+            </div>
+
+            <!-- 2. Kid-Friendly UI (Friendly Pig Face - Cuter Version) -->
+            <div class="feature">
+                <svg class="pixel-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <!-- Head Shape -->
+                    <rect x="2" y="2" width="12" height="12" fill="#F48FB1" />
+
+                    <!-- Eyes: 2x2 with sparkle, spaced for cuteness -->
+                    <rect x="4" y="6" width="2" height="2" fill="#000000" />
+                    <rect x="4" y="6" width="1" height="1" fill="#FFFFFF" />
+
+                    <rect x="10" y="6" width="2" height="2" fill="#000000" />
+                    <rect x="10" y="6" width="1" height="1" fill="#FFFFFF" />
+
+                    <!-- Snout: Compact and centered -->
+                    <rect x="5" y="9" width="6" height="3" fill="#F06292" />
+                    <!-- Nostrils -->
+                    <rect x="6" y="10" width="1" height="1" fill="#880E4F" />
+                    <rect x="9" y="10" width="1" height="1" fill="#880E4F" />
+                </svg>
+                <h3>Kid-friendly UI</h3>
+                <p>Simple, intuitive interface designed specifically for children and beginners. No confusing menus.</p>
+            </div>
+
+            <!-- 3. Easy Mods (Pixel Closed Chest) -->
+            <div class="feature">
+                <svg class="pixel-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <!-- Outline -->
+                    <rect x="1" y="3" width="14" height="11" fill="#3E2723"/>
+                    <!-- Main Box -->
+                    <rect x="2" y="4" width="12" height="9" fill="#FFB74D"/>
+                    <!-- Lid Line -->
+                    <rect x="2" y="7" width="12" height="1" fill="#E65100"/>
+                    <!-- Latch -->
+                    <rect x="7" y="6" width="2" height="3" fill="#BDBDBD"/>
+                    <rect x="7" y="7" width="2" height="1" fill="#757575"/>
+                    <!-- Highlights -->
+                    <rect x="3" y="5" width="1" height="1" fill="#FFE0B2"/>
+                    <rect x="3" y="9" width="1" height="1" fill="#FFE0B2"/>
+                </svg>
+                <h3>Easy mods</h3>
+                <p>One-click mod and modpack installation. Browse, install, and manage content simply.</p>
+            </div>
+
+            <!-- 4. Multi-Platform (Pixel Grass Block) -->
+            <div class="feature">
+                <svg class="pixel-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <!-- Dirt Base -->
+                    <rect x="2" y="3" width="12" height="11" fill="#5D4037"/>
+                    <!-- Grass Top -->
+                    <rect x="2" y="3" width="12" height="3" fill="#64DD17"/>
+                    <!-- Grass Drips -->
+                    <rect x="2" y="6" width="1" height="2" fill="#64DD17"/>
+                    <rect x="4" y="6" width="1" height="1" fill="#64DD17"/>
+                    <rect x="6" y="6" width="2" height="2" fill="#64DD17"/>
+                    <rect x="9" y="6" width="1" height="1" fill="#64DD17"/>
+                    <rect x="11" y="6" width="1" height="2" fill="#64DD17"/>
+                    <rect x="13" y="6" width="1" height="1" fill="#64DD17"/>
+                    <!-- Dirt noise -->
+                    <rect x="4" y="9" width="1" height="1" fill="#3E2723"/>
+                    <rect x="10" y="11" width="1" height="1" fill="#3E2723"/>
+                    <rect x="3" y="12" width="1" height="1" fill="#3E2723"/>
+                </svg>
+                <h3>Multi-platform</h3>
+                <p>Will be available on Windows, Linux, and macOS. Play with friends anywhere.</p>
+            </div>
+
+            <!-- 5. Privacy First (Symmetrical Pixel Shield) -->
+            <div class="feature">
+                <svg class="pixel-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <!-- Metal Outline - Symmetrical -->
+                    <rect x="4" y="2" width="8" height="1" fill="#9E9E9E" /> <!-- Top -->
+                    <rect x="3" y="3" width="1" height="7" fill="#9E9E9E" /> <!-- Left Side -->
+                    <rect x="12" y="3" width="1" height="7" fill="#9E9E9E" /> <!-- Right Side -->
+
+                    <!-- Tapering Bottom -->
+                    <rect x="4" y="10" width="1" height="2" fill="#9E9E9E" />
+                    <rect x="11" y="10" width="1" height="2" fill="#9E9E9E" />
+                    <rect x="5" y="12" width="1" height="1" fill="#9E9E9E" />
+                    <rect x="10" y="12" width="1" height="1" fill="#9E9E9E" />
+                    <rect x="6" y="13" width="4" height="1" fill="#9E9E9E" /> <!-- Bottom Tip -->
+
+                    <!-- Wood Center -->
+                    <rect x="4" y="3" width="8" height="7" fill="#8D6E63" />
+                    <rect x="5" y="10" width="6" height="2" fill="#8D6E63" />
+                    <rect x="6" y="12" width="4" height="1" fill="#8D6E63" />
+
+                    <!-- Iron Stud/Detail in center -->
+                    <rect x="7" y="5" width="2" height="4" fill="#BDBDBD" />
+                </svg>
+                <h3>Privacy first</h3>
+                <p>Built with privacy in mind. No tracking, no ads, no hidden fees.</p>
+            </div>
+
+            <!-- 6. Lightning Fast (Classic Bolt Icon) -->
+            <div class="feature">
+                <svg class="pixel-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                    <!-- Top Section -->
+                    <rect x="8" y="1" width="5" height="2" fill="#FFEB3B" />
+                    <rect x="7" y="3" width="4" height="2" fill="#FFEB3B" />
+                    <rect x="6" y="5" width="4" height="2" fill="#FFEB3B" />
+
+                    <!-- Cross-cut -->
+                    <rect x="4" y="7" width="8" height="2" fill="#FFEB3B" />
+
+                    <!-- Bottom Section -->
+                    <rect x="7" y="9" width="4" height="2" fill="#FFEB3B" />
+                    <rect x="6" y="11" width="3" height="2" fill="#FFEB3B" />
+                    <rect x="5" y="13" width="2" height="2" fill="#FFEB3B" />
+                    <rect x="5" y="15" width="1" height="1" fill="#FFEB3B" />
+
+                    <!-- Simple Shadow / Outline for depth -->
+                    <rect x="13" y="1" width="1" height="2" fill="#F57F17" />
+                    <rect x="11" y="3" width="1" height="2" fill="#F57F17" />
+                    <rect x="12" y="7" width="1" height="2" fill="#F57F17" />
+                    <rect x="11" y="9" width="1" height="2" fill="#F57F17" />
+                    <rect x="9" y="11" width="1" height="2" fill="#F57F17" />
+                    <rect x="7" y="13" width="1" height="2" fill="#F57F17" />
+                </svg>
+                <h3>Lightning fast</h3>
+                <p>Optimized for performance and low memory usage.</p>
             </div>
         </div>
 
         <div class="disclaimer">
-            <strong>DISCLAIMER</strong>
+            <strong>LEGAL DISCLAIMER</strong>
             NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
         </div>
-
-        <p class="intro">
-            A new Minecraft launcher designed specifically for younger players and families,
-            making modded Minecraft accessible to everyone regardless of technical skill.
-        </p>
-        <p class="intro">🚧 This webpage was hastily created for Minecraft login AppID review process 🚧</p>
-
-        <div class="features">
-            <div class="feature">
-                <div class="icon">🔓</div>
-                <h3>Open Source</h3>
-                <p>Completely free and open source software (GPLv3). Repository will be public once we have working Minecraft login.</p>
-            </div>
-
-            <div class="feature">
-                <div class="icon">👨‍👩‍👧‍👦</div>
-                <h3>Kid-Friendly UI</h3>
-                <p>Simple, intuitive interface designed specifically for children and beginners. No confusing menus or technical jargon.</p>
-            </div>
-
-            <div class="feature">
-                <div class="icon">📦</div>
-                <h3>Easy Mods Installation</h3>
-                <p>One-click mod and modpack installation. Browse, install, and manage content with simple visual controls.</p>
-            </div>
-
-            <div class="feature">
-                <div class="icon">💻</div>
-                <h3>Multi-Platform</h3>
-                <p>Will be available on Windows, Linux, and macOS. Play with friends regardless of what computer they use.</p>
-            </div>
-        </div>
-    </div>
+    </main>
 
     <footer>
         <p>&copy; 2025 Lava Launcher. All rights reserved.</p>
-        <p style="font-size: 0.8rem; margin-top: 10px; color: #999;">
-            NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
-        </p>
     </footer>
 </div>
 </body>
