@@ -202,7 +202,6 @@
         /* Features Grid */
         .features {
             display: grid;
-            /* Adaptive columns: Fit as many 200px+ columns as possible */
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 25px;
             margin: 40px 0;
@@ -211,18 +210,16 @@
         /* --- CARD STYLING --- */
 
         .feature {
-            /* Layout & Spacing */
             width: 100%;
             aspect-ratio: 1 / 1;
-            /* Strict Square Enforcement */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            /* Center content in the available space */
+            justify-content: flex-start;
 
-            /* The top padding accommodates the 'grass' layer of the background image */
-            padding: 45px 20px 20px 20px;
+            /* The top padding accommodates the 'grass' layer of the background image 
+               Reduced from 35px to 25px to move everything even more up */
+            padding: 15px;
 
             position: relative;
             text-align: center;
@@ -231,8 +228,7 @@
 
             /* Visuals: Block Texture */
             background-color: var(--card-bg);
-            /* Unified SVG Data URI: Mud + Grass Block */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><!-- Dirt Base --><rect width="16" height="16" fill="%23705238" /><!-- Mud Noise --><path fill="%23543D2A" d="M3 3h1v1h-1z M9 4h1v1h-1z M13 3h1v1h-1z M2 8h1v1h-1z M7 10h1v1h-1z M14 12h1v1h-1z M5 14h1v1h-1z M11 14h1v1h-1z" /><path fill="%238B6647" d="M1 3h1v1h-1z M6 5h1v1h-1z M11 3h1v1h-1z M15 5h1v1h-1z M4 9h1v1h-1z M10 9h1v1h-1z M0 13h1v1h-1z M8 13h1v1h-1z M13 10h1v1h-1z" /><!-- Grass Top --><path fill="%236BA943" d="M0 0h16v1h-16z M0 1h2v1h-2z M3 1h5v1h-5z M9 1h2v1h-2z M12 1h4v1h-4z M1 2h1v1h-1z M4 2h1v1h-1z M10 2h1v1h-1z M13 2h1v1h-1z" /><!-- Grass Noise --><path fill="%234A802A" d="M0 0h1v1h-1z M4 0h1v1h-1z M8 0h1v1h-1z M12 0h1v1h-1z M3 1h1v1h-1z M9 1h1v1h-1z" /><path fill="%2385C95D" d="M2 0h1v1h-1z M6 0h1v1h-1z M10 0h1v1h-1z M14 0h1v1h-1z M5 1h1v1h-1z M11 1h1v1h-1z" /></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><!-- Dirt Base --><rect width="16" height="16" fill="%23705238" /><!-- Mud Noise --><path fill="%23543D2A" d="M3 3h1v1h-1z M9 4h1v1h-1z M13 3h1v1h-1z M2 8h1v1h-1z M7 10h1v1h-1z M14 12h1v1h-1z M5 14h1v1h-1z M11 14h1v1h-1z" /><path fill="%238B6647" d="M1 3h1v1h-1z M6 5h1v1h-1z M11 3h1v1h-1z M15 5h1v1h-1z Math 4 9h1v1h-1z M10 9h1v1h-1z M0 13h1v1h-1z M8 13h1v1h-1z M13 10h1v1h-1z" /><!-- Grass Top --><path fill="%236BA943" d="M0 0h16v1h-16z M0 1h2v1h-2z M3 1h5v1h-5z M9 1h2v1h-2z M12 1h4v1h-4z M1 2h1v1h-1z M4 2h1v1h-1z M10 2h1v1h-1z M13 2h1v1h-1z" /><!-- Grass Noise --><path fill="%234A802A" d="M0 0h1v1h-1z M4 0h1v1h-1z M8 0h1v1h-1z M12 0h1v1h-1z M3 1h1v1h-1z M9 1h1v1h-1z" /><path fill="%2385C95D" d="M2 0h1v1h-1z M6 0h1v1h-1z M10 0h1v1h-1z M14 0h1v1h-1z M5 1h1v1h-1z M11 1h1v1h-1z" /></svg>');
 
             /* Edge-to-Edge Logic */
             background-size: 100% 100%;
@@ -251,10 +247,10 @@
 
         .feature h3 {
             color: var(--primary-orange);
-            margin-bottom: 8px;
             font-size: 1.25rem;
             text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.9), -1px -1px 0 rgba(0, 0, 0, 0.5);
             z-index: 2;
+            flex-shrink: 0;
         }
 
         .feature p {
@@ -263,6 +259,11 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
             z-index: 2;
             line-height: 1.4;
+            flex: 1;
+
+            /* Multi-line ellipsis */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .feature a {
@@ -273,21 +274,13 @@
             z-index: 2;
         }
 
-        .feature a:hover {
-            text-decoration: underline;
-        }
-
-        /* Replaced font-size emoji icon with sized SVG icon */
         .pixel-icon {
-            width: 64px;
-            height: 64px;
+            width: 35%;
+            aspect-ratio: 1 / 1;
             display: block;
-            margin-bottom: 15px;
-            margin-top: -15px;
+            margin-top: 0;
             z-index: 2;
-            /* Drop shadow for depth against the background */
             filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.4));
-
             /* Ensure crisp pixel edges for SVGs */
             image-rendering: pixelated;
         }
@@ -521,31 +514,14 @@
                     <p>Built with privacy in mind. No tracking, no ads, no hidden fees.</p>
                 </div>
 
-                <!-- 6. Lightning Fast (Classic Bolt Icon) -->
+                <!-- 6. Lightning Fast (Source-Matched Bolt) -->
                 <div class="feature">
                     <svg class="pixel-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
                         shape-rendering="crispEdges">
-                        <!-- Top Section -->
-                        <rect x="8" y="1" width="5" height="2" fill="#FFEB3B" />
-                        <rect x="7" y="3" width="4" height="2" fill="#FFEB3B" />
-                        <rect x="6" y="5" width="4" height="2" fill="#FFEB3B" />
-
-                        <!-- Cross-cut -->
-                        <rect x="4" y="7" width="8" height="2" fill="#FFEB3B" />
-
-                        <!-- Bottom Section -->
-                        <rect x="7" y="9" width="4" height="2" fill="#FFEB3B" />
-                        <rect x="6" y="11" width="3" height="2" fill="#FFEB3B" />
-                        <rect x="5" y="13" width="2" height="2" fill="#FFEB3B" />
-                        <rect x="5" y="15" width="1" height="1" fill="#FFEB3B" />
-
-                        <!-- Simple Shadow / Outline for depth -->
-                        <rect x="13" y="1" width="1" height="2" fill="#F57F17" />
-                        <rect x="11" y="3" width="1" height="2" fill="#F57F17" />
-                        <rect x="12" y="7" width="1" height="2" fill="#F57F17" />
-                        <rect x="11" y="9" width="1" height="2" fill="#F57F17" />
-                        <rect x="9" y="11" width="1" height="2" fill="#F57F17" />
-                        <rect x="7" y="13" width="1" height="2" fill="#F57F17" />
+                        <path
+                            d="M 7.0931898,14 7.7197112,9.1970474 H 5.05 L 8.9076621,2 8.2811407,6.8030645 h 2.6697483 z"
+                            style="fill:#ecbd28;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.00186404"
+                            id="path1" />
                     </svg>
                     <h3>Lightning fast</h3>
                     <p>Optimized for performance and low memory usage.</p>
